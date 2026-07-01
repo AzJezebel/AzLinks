@@ -1,0 +1,336 @@
+/* =========================================================
+   Az Az — Portfolio
+   Palette chaude restreinte, typographie système,
+   dark/light mode 100% CSS (checkbox caché), sans JS.
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* ---------- Tokens : mode sombre (par défaut) ---------- */
+.page {
+  --bg: #1B1410;
+  --bg-pattern: rgba(242, 166, 90, 0.05);
+  --surface: #241A14;
+  --surface-border: rgba(242, 232, 222, 0.08);
+  --text: #F2E8DE;
+  --text-muted: #B8A797;
+  --rust: #D85A3D;
+  --rust-deep: #B5432A;
+  --amber: #E8A14C;
+  --amber-deep: #C97F2E;
+  --ink: #1B1410;
+
+  --avatar-red: #C8502F;
+  --avatar-red-light: #E8845E;
+  --avatar-dark: #1B1410;
+  --avatar-cream: #F6ECE1;
+
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-image:
+    repeating-linear-gradient(45deg, var(--bg-pattern) 0, var(--bg-pattern) 2px, transparent 2px, transparent 18px);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ---------- Tokens : mode clair (checkbox cochée) ---------- */
+#theme-toggle:checked ~ .page {
+  --bg: #FAF3EC;
+  --bg-pattern: rgba(200, 80, 47, 0.05);
+  --surface: #FFFFFF;
+  --surface-border: rgba(42, 31, 24, 0.08);
+  --text: #2A1F18;
+  --text-muted: #7A6657;
+  --rust: #C8502F;
+  --rust-deep: #A23B22;
+  --amber: #D98A33;
+  --amber-deep: #B06D22;
+  --ink: #2A1F18;
+
+  --avatar-red: #C8502F;
+  --avatar-red-light: #E8845E;
+  --avatar-dark: #2A1F18;
+  --avatar-cream: #FAF3EC;
+}
+
+.theme-toggle-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Topbar / toggle ---------- */
+.topbar {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.lang-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.toggle-track {
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--rust);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#theme-toggle:checked ~ .page .theme-toggle-label .toggle-thumb {
+  transform: translateX(18px);
+  background: var(--amber);
+}
+
+#lang-toggle:checked ~ .page .lang-toggle-label .toggle-thumb {
+  transform: translateX(18px);
+  background: var(--amber);
+}
+
+.toggle-icon {
+  display: inline-flex;
+}
+
+/* ---------- Langue FR / EN (100% CSS, pas de JS) ---------- */
+.lang-en {
+  display: none;
+}
+
+#lang-toggle:checked ~ .page .lang-fr {
+  display: none;
+}
+
+#lang-toggle:checked ~ .page .lang-en {
+  display: inline;
+}
+
+/* ---------- Card ---------- */
+.card {
+  width: 100%;
+  max-width: 920px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 24px;
+  padding: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.profile {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+/* ---------- Avatar pixel art ---------- */
+.pixel-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  background: var(--avatar-cream);
+  border: 1px solid var(--surface-border);
+  margin-bottom: 24px;
+}
+
+.px {
+  width: 100%;
+  height: 100%;
+}
+
+.px.e { background: transparent; }
+.px.r { background: var(--avatar-red); }
+.px.h { background: var(--avatar-red-light); }
+.px.k { background: var(--avatar-dark); }
+.px.w { background: var(--avatar-cream); }
+
+/* ---------- Texte ---------- */
+.eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--amber);
+}
+
+.pin {
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 1.1;
+  margin: 0 0 18px 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.bio {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* ---------- Liens ---------- */
+.links {
+  flex: 0 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--rust);
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.link-btn:hover,
+.link-btn:focus-visible {
+  transform: translateX(2px);
+  filter: brightness(1.06);
+}
+
+.link-btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.link-btn--primary { background: var(--rust); color: #FFF3EC; }
+.link-btn--secondary { background: var(--rust-deep); color: #FFF3EC; }
+.link-btn--accent { background: var(--amber); color: var(--ink); }
+.link-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+}
+
+.badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.link-btn--ghost .badge {
+  background: var(--surface-border);
+}
+
+/* ---------- Footer ---------- */
+.footnote {
+  margin-top: 24px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.footnote p {
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 680px) {
+  .card {
+    padding: 32px 24px;
+    flex-direction: column;
+  }
+
+  .topbar {
+    justify-content: center;
+  }
+
+  .profile, .links {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .bio {
+    max-width: none;
+  }
+}
+
+/* ---------- Accessibilité ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
