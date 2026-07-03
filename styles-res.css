@@ -1,5 +1,5 @@
 /* =========================================================
-   Az Az — Portfolio
+   Jézébel ASSAD Links
    Palette chaude restreinte, typographie système,
    dark/light mode 100% CSS (checkbox caché), sans JS.
    ========================================================= */
@@ -309,22 +309,68 @@ html, body {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 680px) {
-  .card {
-    padding: 32px 24px;
-    flex-direction: column;
+  .page {
+    padding: 0 0 28px 0;
+    justify-content: flex-start;
   }
 
   .topbar {
-    justify-content: center;
+    max-width: none;
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 0;
+    justify-content: space-between;
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
   }
 
-  .profile, .links {
-    flex: 1 1 auto;
+  .card {
+    max-width: none;
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    padding: 40px 24px 32px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 36px;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
   }
 
+  .pixel-avatar {
+    width: 128px;
+    height: 128px;
+    margin: 0 0 22px 0;
+  }
+
+  .eyebrow {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .name {
+    font-size: clamp(36px, 11vw, 46px);
+  }
+
   .bio {
-    max-width: none;
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+
+  .links {
+    width: 100%;
+  }
+
+  .footnote {
+    text-align: center;
   }
 }
 
